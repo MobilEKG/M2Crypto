@@ -18,7 +18,7 @@ environment:
       PYTHON_VERSION: "3.8.0"
       PYTHON_ARCH: "32"
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
-      PYWIN32: "pywin32-227.win32-py3.8.exe"
+      PYWIN32: "pywin32-227.win32-py3.8.exe" # Refer to https://github.com/mhammond/pywin32/releases
       PYWIN32_RELEASE: b227
 
     - PYTHON: "C:\\Python38-x64"
