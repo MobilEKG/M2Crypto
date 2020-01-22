@@ -60,14 +60,14 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5.x" # currently 3.6.4
+      PYTHON_VERSION: "3.5.x"
       PYTHON_ARCH: "32"
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-227.win32-py3.5.exe"
       PYWIN32_RELEASE: b227
 
     - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5.x" # currently 3.6.4
+      PYTHON_VERSION: "3.5.x"
       PYTHON_ARCH: "64"
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
       PYWIN32: "pywin32-227.win-amd64-py3.5.exe"
