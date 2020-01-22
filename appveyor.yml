@@ -5,42 +5,74 @@ environment:
         secure: oqWqarxnd4H23FMywnlQeg==
     PASS:
         secure: j/VSxdYJ7mdR44u8OdywLg==
-    X86_OPENSSL_INSTALLER: Win32OpenSSL-1_1_0L.exe
-    X64_OPENSSL_INSTALLER: Win64OpenSSL-1_1_0L.exe
+
+    # The OpenSSL Installer for Windows: https://slproweb.com/products/Win32OpenSSL.html
+#    X86_OPENSSL_INSTALLER: Win32OpenSSL-1_1_1d.exe
+#    X64_OPENSSL_INSTALLER: Win64OpenSSL-1_1_1d.exe
 
   matrix:
 
     # Pre-installed Python versions, which Appveyor may upgrade to
     # a later point release.
+    - PYTHON: "C:\\Python38"
+      PYTHON_VERSION: "3.8.0"
+      PYTHON_ARCH: "32"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
+      PYWIN32: "pywin32-222.win32-py3.8.exe"
+      PYWIN32_RELEASE: b222
+
+    - PYTHON: "C:\\Python38-x64"
+      PYTHON_VERSION: "3.8.0 x64"
+      PYTHON_ARCH: "64"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
+      PYWIN32: "pywin32-222.win-amd64-py3.8.exe"
+      PYWIN32_RELEASE: b222
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+
+    - PYTHON: "C:\\Python37"
+      PYTHON_VERSION: "3.7.5"
+      PYTHON_ARCH: "32"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
+      PYWIN32: "pywin32-222.win32-py3.7.exe"
+      PYWIN32_RELEASE: b222
+
+    - PYTHON: "C:\\Python37-x64"
+      PYTHON_VERSION: "3.7.5"
+      PYTHON_ARCH: "64"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
+      PYWIN32: "pywin32-222.win-amd64-py3.7.exe"
+      PYWIN32_RELEASE: b222
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+
     - PYTHON: "C:\\Python36"
       PYTHON_VERSION: "3.6.x" # currently 3.6.4
       PYTHON_ARCH: "32"
-      OPENSSL_PATH: "C:\\OpenSSL-1-1-Win32"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-222.win32-py3.6.exe"
       PYWIN32_RELEASE: b222
 
     - PYTHON: "C:\\Python36-x64"
       PYTHON_VERSION: "3.6.x" # currently 3.6.4
       PYTHON_ARCH: "64"
-      OPENSSL_PATH: "C:\\OpenSSL-1-1-Win64"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
       PYWIN32: "pywin32-222.win-amd64-py3.6.exe"
       PYWIN32_RELEASE: b222
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python35"
       PYTHON_VERSION: "3.5.x" # currently 3.6.4
       PYTHON_ARCH: "32"
-      OPENSSL_PATH: "C:\\OpenSSL-1-1-Win32"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-222.win32-py3.5.exe"
       PYWIN32_RELEASE: b222
 
     - PYTHON: "C:\\Python35-x64"
       PYTHON_VERSION: "3.5.x" # currently 3.6.4
       PYTHON_ARCH: "64"
-      OPENSSL_PATH: "C:\\OpenSSL-1-1-Win64"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
       PYWIN32: "pywin32-222.win-amd64-py3.5.exe"
       PYWIN32_RELEASE: b222
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7.x" # currently 2.7.9
@@ -52,21 +84,21 @@ environment:
     - PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7.x" # currently 2.7.9
       PYTHON_ARCH: "32"
-      OPENSSL_PATH: "C:\\OpenSSL-1-1-Win32"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-222.win32-py2.7.exe"
       PYWIN32_RELEASE: b222
 
     - PYTHON: "C:\\Python27-x64"
       PYTHON_VERSION: "2.7.x" # currently 2.7.9
       PYTHON_ARCH: "64"
-      OPENSSL_PATH: "C:\\OpenSSL-1-1-Win64"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
       PYWIN32: "pywin32-222.win-amd64-py2.7.exe"
       PYWIN32_RELEASE: b222
 
     - PYTHON: "C:\\Python27-x64"
       PYTHON_VERSION: "2.7.x" # currently 2.7.9
       PYTHON_ARCH: "64"
-      OPENSSL_PATH: "C:\\OpenSSL-1-1-Win64"
+      OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
       PYWIN32: "pywin32-222.win-amd64-py2.7.exe"
       PYWIN32_RELEASE: b222
 
@@ -97,13 +129,13 @@ install:
   # target Python version and architecture
   - "%PYTHON%\\Scripts\\pip.exe install -r dev-requirements.txt"
 
-  - ECHO "Install OpenSSL 1.1.0 32bit"
-  - curl -o "c:\\%X86_OPENSSL_INSTALLER%" -fsSL "https://slproweb.com/download/%X86_OPENSSL_INSTALLER%"
-  - "c:\\%X86_OPENSSL_INSTALLER% /silent /verysilent /DIR=C:\\OpenSSL-1-1-Win32"
-
-  - ECHO "Install OpenSSL 1.1.0 64bit"
-  - curl -o "c:\\%X64_OPENSSL_INSTALLER%" -fsSL "https://slproweb.com/download/%X64_OPENSSL_INSTALLER%"
-  - "c:\\%X64_OPENSSL_INSTALLER% /silent /verysilent /DIR=C:\\OpenSSL-1-1-Win64"
+#  - ECHO "Install OpenSSL 1.1.0 32bit"
+#  - curl -o "c:\\%X86_OPENSSL_INSTALLER%" -fsSL "https://slproweb.com/download/%X86_OPENSSL_INSTALLER%"
+#  - "c:\\%X86_OPENSSL_INSTALLER% /silent /verysilent /DIR=C:\\OpenSSL-v111-Win32"
+#
+#  - ECHO "Install OpenSSL 1.1.0 64bit"
+#  - curl -o "c:\\%X64_OPENSSL_INSTALLER%" -fsSL "https://slproweb.com/download/%X64_OPENSSL_INSTALLER%"
+#  - "c:\\%X64_OPENSSL_INSTALLER% /silent /verysilent /DIR=C:\\OpenSSL-v111-Win64"
 
   - ECHO "Install pywin32"
   - curl -o "%PYWIN32%" -fsSL "https://github.com/mhammond/pywin32/releases/download/%PYWIN32_RELEASE%/%PYWIN32%"
@@ -112,10 +144,10 @@ install:
   #- 7z x "%PYWIN32%" -opywin32
   #- xcopy /e "pywin32\\PLATLIB" "%PYTHON%\\Lib\\site-packages"
 
-  - ECHO "Filesystem root:"
-  - ps: "ls \"C:/\""
+#  - ECHO "Filesystem root:"
+#  - ps: "ls \"C:/\""
 
-  - ps: "ls \"C:/OpenSSL-Win32\""
+#  - ps: "ls \"C:/OpenSSL-Win32\""
   - ECHO "Installed SDKs:"
   - ps: if (Test-Path "C:/Program Files/Microsoft SDKs/Windows") { ls "C:/Program Files/Microsoft SDKs/Windows" }
 
