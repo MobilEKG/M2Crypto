@@ -20,6 +20,7 @@ environment:
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-227.win32-py3.8.exe" # Refer to https://github.com/mhammond/pywin32/releases
       PYWIN32_RELEASE: b227
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python38-x64"
       PYTHON_VERSION: "3.8.0 x64"
@@ -35,6 +36,7 @@ environment:
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-227.win32-py3.7.exe"
       PYWIN32_RELEASE: b227
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python37-x64"
       PYTHON_VERSION: "3.7.5"
@@ -50,6 +52,7 @@ environment:
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-227.win32-py3.6.exe"
       PYWIN32_RELEASE: b227
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python36-x64"
       PYTHON_VERSION: "3.6.x" # currently 3.6.8
@@ -65,6 +68,7 @@ environment:
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-227.win32-py3.5.exe"
       PYWIN32_RELEASE: b227
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python35-x64"
       PYTHON_VERSION: "3.5.x"
@@ -75,32 +79,20 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.x" # currently 2.7.9
-      PYTHON_ARCH: "32"
-      OPENSSL_PATH: "C:\\OpenSSL-Win32"
-      PYWIN32: "pywin32-227.win32-py2.7.exe"
-      PYWIN32_RELEASE: b227
-
-    - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.x" # currently 2.7.9
+      PYTHON_VERSION: "2.7.x"
       PYTHON_ARCH: "32"
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win32"
       PYWIN32: "pywin32-227.win32-py2.7.exe"
       PYWIN32_RELEASE: b227
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
     - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.x" # currently 2.7.9
+      PYTHON_VERSION: "2.7.x"
       PYTHON_ARCH: "64"
       OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
       PYWIN32: "pywin32-227.win-amd64-py2.7.exe"
       PYWIN32_RELEASE: b227
-
-    - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.x" # currently 2.7.9
-      PYTHON_ARCH: "64"
-      OPENSSL_PATH: "C:\\OpenSSL-v111-Win64"
-      PYWIN32: "pywin32-227.win-amd64-py2.7.exe"
-      PYWIN32_RELEASE: b227
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
 
 nuget:
     account_feed: true
@@ -123,6 +115,10 @@ install:
   - "python --version"
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 
+  # Upgrade to the latest version of pip to avoid it displaying warnings
+  # about it being out of date.
+  - "python -m pip install --upgrade pip"
+    
   # Install the build dependencies of the project. If some dependencies contain
   # compiled extensions and are not provided as pre-built wheel packages,
   # pip will build them from source using the MSVC compiler matching the
