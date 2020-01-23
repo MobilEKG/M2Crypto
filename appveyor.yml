@@ -101,7 +101,6 @@ install:
   # Install non-python dependencies using chocolatey package manager
   - choco install -r -y swig
 
-
   # Install Python (from the official .msi of http://python.org) and pip when
   # not already installed.
   - ps: if (-not(Test-Path($env:PYTHON))) { & appveyor\install.ps1 }
