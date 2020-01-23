@@ -168,9 +168,9 @@ artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
   - path: dist\*
 
-  - path: SWIG/_m2crypto_wrap.c
-    name: _m2crypto_wrap.zip
-    type: zip
+#  - path: SWIG/_m2crypto_wrap.c
+#    name: _m2crypto_wrap.zip
+#    type: zip
 
 after_build:
   - ps: Get-ChildItem SWIG\_m2crypto_wrap.c | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
