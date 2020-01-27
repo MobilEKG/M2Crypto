@@ -171,6 +171,16 @@ artifacts:
 #    name: _m2crypto_wrap.zip
 #    type: zip
 
+deploy:
+  # Deploy to GitHub Releases
+  - provider: GitHub
+    artifact: dist\*
+    draft: false
+    prerelease: false
+#    on:
+#      branch: master                # release from master branch only
+#      APPVEYOR_REPO_TAG: true       # deploy on tag push only
+
 after_build:
   - ps: Get-ChildItem SWIG\_m2crypto_wrap.c | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 
