@@ -175,11 +175,13 @@ deploy:
   # Deploy to GitHub Releases
   - provider: GitHub
     artifact: dist\*
+    auth_token:
+      secure: mo9fuqhBMmIHDmng6CTJ6VTn+nGAEQ6jh1vJDmU7hfLmYIOFsj2RvzgnvS0L4npn # your encrypted token from GitHub
     draft: false
     prerelease: false
-#    on:
-#      branch: master                # release from master branch only
-#      APPVEYOR_REPO_TAG: true       # deploy on tag push only
+    on:
+      branch: win                   # release from this branch only
+      APPVEYOR_REPO_TAG: true       # deploy on tag push only
 
 after_build:
   - ps: Get-ChildItem SWIG\_m2crypto_wrap.c | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
