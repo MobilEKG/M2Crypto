@@ -1,5 +1,5 @@
 
-version: 3.5.4.{build}
+version: 0.35.2.{build}
 
 environment:
   global:
