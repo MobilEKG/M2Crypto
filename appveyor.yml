@@ -1,3 +1,6 @@
+
+version: 3.5.4.{build}
+
 environment:
   global:
     # PyPI login environment:
@@ -174,7 +177,7 @@ artifacts:
 deploy:
   # Deploy to GitHub Releases
   - provider: GitHub
-    artifact: dist\*
+    artifact: /.*\.(whl|exe|msi)/
     auth_token:
       secure: mo9fuqhBMmIHDmng6CTJ6VTn+nGAEQ6jh1vJDmU7hfLmYIOFsj2RvzgnvS0L4npn # your encrypted token from GitHub
     draft: false
